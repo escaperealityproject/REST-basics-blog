@@ -31,6 +31,9 @@ var blogSchema = new mongoose.Schema({
 var Blog = mongoose.model("Blog", blogSchema);
 
 //ROUTES
+
+//INDEX ROUTE
+
 app.get("/", function(req, res) {
   res.redirect("/blogs");
 });
@@ -47,6 +50,27 @@ app.get("/blogs", function(req, res) {
   })
 })
 
+//NEW ROUTE
+
+app.get("/blogs/new", function(req, res) {
+  res.render("new");
+})
+
+//CREATE ROUTE
+
+app.post("/blogs", function(req, res) {
+  Blog.create({
+    title: req.body.title,
+    image: req.body.image,
+    body: req.body.body
+  }, function(err, newBlog) {
+    if (err) {
+      res.render("new");
+    } else {
+      res.redirect("/blogs");
+    }
+  })
+})
 
 app.listen(3000, function() {
   console.log("Server is running");
