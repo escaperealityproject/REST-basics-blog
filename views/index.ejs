@@ -10,8 +10,9 @@
           <%=blogs.created%>
         </span>
       <p>
-        <%=blogs.body%>
+        <%=blogs.body.substring(0,100)%>....
       </p>
+      <a href="/blogs/<%=blogs._id%>">Read More</a>
     </div>
     <% }) %>
 
