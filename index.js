@@ -92,28 +92,30 @@ app.get("/blogs/:id", function(req, res) {
 
 //EDIT ROUTE
 
-app.get("/blogs/:id/edit",function(req,res){
-  Blog.findById(req.params.id,function(err, foundBlog){
-    if(err){
+app.get("/blogs/:id/edit", function(req, res) {
+  Blog.findById(req.params.id, function(err, foundBlog) {
+    if (err) {
       res.redirect("/blogs");
-    }else{
-      res.render("edit",{blog : foundBlog});
+    } else {
+      res.render("edit", {
+        blog: foundBlog
+      });
     }
   })
 });
 
 //UPDATE ROUTE
 
-app.put("/blogs/:id",function(req,res){
-  Blog.findByIdAndUpdate(req.params.id,{
+app.put("/blogs/:id", function(req, res) {
+  Blog.findByIdAndUpdate(req.params.id, {
     title: req.body.title,
     image: req.body.image,
     body: req.body.body
-  },function(err,updatedBlog){
-    if(err){
+  }, function(err, updatedBlog) {
+    if (err) {
       res.redirect("/blogs");
-    }else{
-      res.redirect("/blogs/"+req.params.id);
+    } else {
+      res.redirect("/blogs/" + req.params.id);
     }
   })
 })
@@ -124,6 +126,18 @@ app.listen(3000, function() {
     console.log("Server is running");
   }, 5000);
 });
+
+//DELETE ROUTE
+
+app.delete("/blogs/:id", function(req, res) {
+  Blog.findByIdAndRemove(req.params.id, function(err) {
+    if (err) {
+      res.redirect("/blogs");
+    } else {
+      res.redirect("/blogs");
+    }
+  })
+})
 
 // Blog.create({
 //   title: "DOG BLOG",
